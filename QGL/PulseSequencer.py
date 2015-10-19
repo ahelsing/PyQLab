@@ -41,7 +41,6 @@ class Pulse(object):
         self.phase = phase
         self.amp = amp
         self.frameChange = frameChange
-        self.isTimeAmp = False
         requiredParams = ['length', 'shapeFun']
         for param in requiredParams:
             if param not in shapeParams.keys():
@@ -100,6 +99,10 @@ class Pulse(object):
         return self.amp == 0
 
     @property
+    def isTimeAmp(self):
+        return (self.shapeParams["shapeFun"] == PulseShapes.constant) or (self.shapeParams["shapeFun"] == PulseShapes.square)
+
+    @property
     def shape(self):
         params = copy(self.shapeParams)
         params['samplingRate'] = self.channel.physChan.samplingRate
@@ -112,7 +115,6 @@ def TAPulse(label, channel, length, amp, phase=0, frameChange=0):
     '''
     params = {'length': length, 'shapeFun': PulseShapes.constant}
     p = Pulse(label, channel, params, amp, phase, frameChange)
-    p.isTimeAmp = True
     return p
 
 class CompositePulse(object):

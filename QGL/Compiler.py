@@ -80,7 +80,6 @@ def merge_channels(wires, channels):
                 newentry = copy(entries[0])
                 #TODO properly deal with constant pulses
                 newentry.amp = 1.0
-                newentry.isTimeAmp = all([e.isTimeAmp for e in entries])
                 if all([e.amp == 0 for e in entries]):
                     newentry.amp = 0
                 else:
@@ -158,7 +157,6 @@ def concatenate_entries(entry1, entry2):
             return np.hstack((entry1.amp * np.exp(1j*entry1.phase) * entry1.shape,
                               entry2.amp * np.exp(1j*(entry1.frameChange + entry2.phase)) * entry2.shape))
 
-        newentry.isTimeAmp = False
         newentry.shapeParams = {'shapeFun' : stack_shapes}
         newentry.label = entry1.label + '+' + entry2.label
     newentry.frameChange += entry2.frameChange
