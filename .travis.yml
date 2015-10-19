@@ -5,8 +5,19 @@ language: python
 python:
   - "2.7"
 
-# Setup anaconda
+recipies:
+  git::lfs
+
 before_install:
+  # setup git-lfs
+  - wget https://github.com/github/git-lfs/releases/download/v1.0.0/git-lfs-linux-amd64-1.0.0.tar.gz
+  - tar xzf git-lfs-linux-amd64-1.0.0.tar.gz
+  - cd git-lfs-1.0.0
+  - sudo ./install.sh
+  - cd ..
+  - sudo git lfs fetch
+
+  # Setup anaconda
   - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
   - ./miniconda.sh -b
@@ -27,4 +38,4 @@ after_script:
   - coveralls
 
 # necessary to run on new container-based infrastructure
-sudo: false
+sudo: true
