@@ -45,7 +45,7 @@ class Pulse(object):
         requiredParams = ['length', 'shapeFun']
         for param in requiredParams:
             if param not in shapeParams.keys():
-                raise NameError("ShapeParams must incluce {0}".format(param))
+                raise NameError("ShapeParams must include {0}".format(param))
 
     def __repr__(self):
         return str(self)

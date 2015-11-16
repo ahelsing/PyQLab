@@ -234,7 +234,6 @@ def compile_to_hardware(seqs, fileName, suffix=''):
     Compiles 'seqs' to a hardware description and saves it to 'fileName'. Other inputs:
         suffix : string to append to end of fileName (e.g. with fileNames = 'test' and suffix = 'foo' might save to test-APSfoo.h5)
     '''
-
     # Add the digitizer trigger to measurements
     PatternUtils.add_digitizer_trigger(seqs)
 
@@ -457,7 +456,7 @@ def schedule(channel, pulse, blockLength, alignment):
     if padLength == 0:
         # no padding element required
         return pulses
-    elif alignment == "left":
+    elif alignment == "left" or pulse.label == 'TRIG':
         return pulses + [Id(channel, padLength)]
     elif alignment == "right":
         return [Id(channel, padLength)] + pulses
